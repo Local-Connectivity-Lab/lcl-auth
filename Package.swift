@@ -7,7 +7,7 @@ let package = Package(
     name: "lcl-ping-auth",
     platforms: [.iOS(.v13), .macOS(.v11), .tvOS(.v13), .watchOS(.v6)],
     products: [
-        .library(name: "lcl-ping-auth", targets: ["LCLPingAuth"])
+        .library(name: "LCLPingAuth", targets: ["LCLPingAuth"])
     ],
     dependencies: [
         .package(url: "https://github.com/johnnzhou/lcl-k1.git", branch: "main"),
