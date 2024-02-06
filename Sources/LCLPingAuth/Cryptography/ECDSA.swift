@@ -16,7 +16,7 @@ import LCLK1
 /**
  The ECDSA (Elliptic Curve Digital Signature Algorithm) namespace that handles key serialization, deserialization, verification, and signing
  */
-class ECDSA {
+public class ECDSA {
 
     /**
      Derive the corresponding public key from the ECDSA private key
