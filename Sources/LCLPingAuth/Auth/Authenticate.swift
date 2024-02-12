@@ -12,7 +12,7 @@
 
 import Foundation
 
-public func deserialize<T: Decodable>(json: Dat, as: T) throws -> T? {
+public func deserialize<T: Decodable>(json: Data, as: T) throws -> T? {
     return try JSONDecoder().decode(T.self, from: json)
 }
 
