@@ -12,12 +12,12 @@
 
 import Foundation
 
-public func deserialize<T: Decodable>(json: Data, as: T) throws -> T? {
+public func deserialize<T: Decodable>(json: Data, as: T.Type) throws -> T? {
     return try JSONDecoder().decode(T.self, from: json)
 }
 
 public func validate(credential: Data) throws -> ValidationResult {
-    guard let qrCode: Keys = try? deserialize(json: credential) else {
+    guard let qrCode = try? deserialize(json: credential, as: Keys.self) else {
         throw LCLPingAuthError.invalidCredential
     }
 
