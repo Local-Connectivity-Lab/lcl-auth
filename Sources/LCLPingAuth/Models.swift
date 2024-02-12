@@ -33,7 +33,7 @@ extension Keys {
     }
 }
 
-public struct ValidationResult {
+public struct ValidationResult: Codable {
     public let R: Data
     public let skT: Data
     public let hPKR: Data
