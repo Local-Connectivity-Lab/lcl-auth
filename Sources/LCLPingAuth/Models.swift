@@ -33,8 +33,8 @@ extension Keys {
     }
 }
 
-public struct AuthenticationResult {
-    let R: Data
-    let skT: Data
-    let hPKR: Data
+public struct ValidationResult {
+    public let R: Data
+    public let skT: Data
+    public let hPKR: Data
 }

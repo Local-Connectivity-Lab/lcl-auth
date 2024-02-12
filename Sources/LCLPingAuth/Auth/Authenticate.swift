@@ -12,8 +12,12 @@
 
 import Foundation
 
-public func validate(credential: Data) throws -> AuthenticationResult {
-    guard let qrCode = try? JSONDecoder().decode(Keys.self, from: credential) else {
+public func deserialize<T: Decodable>(json: Dat, as: T) throws -> T? {
+    return try JSONDecoder().decode(T.self, from: json)
+}
+
+public func validate(credential: Data) throws -> ValidationResult {
+    guard let qrCode: Keys = try? deserialize(json: credential) else {
         throw LCLPingAuthError.invalidCredential
     }
 
@@ -57,5 +61,5 @@ public func validate(credential: Data) throws -> AuthenticationResult {
     h_pkr = digest(data: outputData, algorithm: .SHA256)
     outputData.removeAll()
     
-    return AuthenticationResult(R: r, skT: skT, hPKR: h_pkr)
+    return ValidationResult(R: r, skT: skT, hPKR: h_pkr)
 }
