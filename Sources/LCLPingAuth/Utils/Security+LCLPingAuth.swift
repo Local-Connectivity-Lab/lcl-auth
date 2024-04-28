@@ -44,21 +44,21 @@ public func generateSecureRandomBytes(count: Int) -> Result<Data, LCLPingAuthErr
     let res = withUnsafeMutableBytes(of: &bytes) { buffer in
         return getentropy(buffer.baseAddress, count)
     }
-    
+
     if res == -1 {
         // TODO: check errno for detailed error
         return .failure(.keyGenerationFailed)
     }
-    
+
     return .success(Data(bytes))
     #endif
 }
 
 extension Digest {
-    
+
     /// the bytes representation of the `Digest` data
     var bytes: [UInt8] { Array(makeIterator()) }
-    
+
     /// the `Data` representation of the `Digest` data
     var data: Data { Data(bytes) }
 }
@@ -89,3 +89,29 @@ public func digest(data: Data, algorithm: HashAlgorithm) -> Data {
     }
 }
 
+/**
+    Encrypt the plaintext using the given symmetric key
+
+    - Parameters:
+        - plainText: the plaintext data to be encrypted
+        - key: the symmetric key that will be used for encryption
+    
+    - Returns: the encrypted data
+*/
+public func encrypt(plainText: Data, key: SymmetricKey) throws -> Data {
+    let box = try AES.GCM.seal(plainText, using: key)
+    return box.combined!
+}
+
+/**
+    Decrypt the cipher data using the given symmetric key
+
+    - Parameters:
+        - cipher: the cipher text to be decrypted
+        - key: the symmetric key that will be used for decryption
+    - Returns: the decrypted data
+*/
+public func decrypt(cipher: Data, key: SymmetricKey) throws -> Data {
+    let box = try AES.GCM.SealedBox(combined: cipher)
+    return try AES.GCM.open(box, using: key)
+}

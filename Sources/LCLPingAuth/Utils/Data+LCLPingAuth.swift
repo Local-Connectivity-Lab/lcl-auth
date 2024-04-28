@@ -31,7 +31,7 @@ private func htoi(_ value: UInt8) throws -> UInt8 {
 }
 
 extension Data {
-    
+
     /// Initialize the `Data` from the hex string value
     init(hexString: String) throws {
         self.init()
@@ -52,7 +52,7 @@ extension Data {
 }
 
 extension ByteArray {
-    
+
     /// The  `Data` representation of the byte array
     var toData: Data {
         return Data(self)
@@ -60,7 +60,7 @@ extension ByteArray {
 }
 
 extension Data {
-    
+
     /// The hex String representation of the given `Data`
     var hex: String {
         reduce("") { $0 + String(format: "%02hhx", $1) }

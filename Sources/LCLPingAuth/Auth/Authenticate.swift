@@ -60,6 +60,6 @@ public func validate(credential: Data) throws -> ValidationResult {
 
     h_pkr = digest(data: outputData, algorithm: .SHA256)
     outputData.removeAll()
-    
+
     return ValidationResult(R: r, skT: skT, hPKR: h_pkr)
 }

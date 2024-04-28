@@ -92,7 +92,6 @@ public class ECDSA {
     }
 }
 
-
 extension K1.ECDSA.Signature {
     /// The data representation of signature in bytes
     var toData: Data {
@@ -104,4 +103,3 @@ extension K1.ECDSA.Signature {
         return Data(byteBuffer)
     }
 }
-

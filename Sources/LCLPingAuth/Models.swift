@@ -17,12 +17,6 @@ struct Keys: Decodable {
     var sigmaT: String
     var skT: String
     var pk_a: String
-    
-    init(sigmaT: String, skT: String, pk_a: String) {
-        self.sigmaT = sigmaT
-        self.skT = skT
-        self.pk_a = pk_a
-    }
 }
 
 extension Keys {
