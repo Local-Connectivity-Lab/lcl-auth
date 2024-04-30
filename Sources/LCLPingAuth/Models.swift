@@ -31,4 +31,10 @@ public struct ValidationResult: Codable {
     public let R: Data
     public let skT: Data
     public let hPKR: Data
+
+    public init(R: Data, skT: Data, hPKR: Data) {
+        self.R = R
+        self.skT = skT
+        self.hPKR = hPKR
+    }
 }
