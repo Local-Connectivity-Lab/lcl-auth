@@ -1,5 +1,5 @@
 //
-// This source file is part of the LCLPing open source project
+// This source file is part of the LCL open source project
 //
 // Copyright (c) 2021-2024 Local Connectivity Lab and the project authors
 // Licensed under Apache License v2.0
@@ -18,27 +18,27 @@ public func deserialize<T: Decodable>(json: Data, as: T.Type) throws -> T? {
 
 public func validate(credential: Data) throws -> ValidationResult {
     guard let qrCode = try? deserialize(json: credential, as: Keys.self) else {
-        throw LCLPingAuthError.invalidCredential
+        throw LCLAuthError.invalidCredential
     }
 
     guard let pkA: Data = try? .init(hexString: qrCode.pk_a), let skT: Data = try? .init(hexString: qrCode.skT), let sigmaT: Data = try? .init(hexString: qrCode.sigmaT) else {
-        throw LCLPingAuthError.invalidCredential
+        throw LCLAuthError.invalidCredential
     }
 
     guard let pk_a = try? ECDSA.deserializePublicKey(raw: pkA) else {
-        throw LCLPingAuthError.invalidPublicKey
+        throw LCLAuthError.invalidPublicKey
     }
 
     guard let isValidSignature = try? ECDSA.verify(message: skT, signature: sigmaT, publicKey: pk_a) else {
-        throw LCLPingAuthError.invalidSignature
+        throw LCLAuthError.invalidSignature
     }
 
     if !isValidSignature {
-        throw LCLPingAuthError.corruptedCredential
+        throw LCLAuthError.corruptedCredential
     }
 
     guard let sk_t = try? ECDSA.deserializePrivateKey(raw: skT) else {
-        throw LCLPingAuthError.invalidPrivateKey
+        throw LCLAuthError.invalidPrivateKey
     }
 
     let pk_t = ECDSA.derivePublicKey(from: sk_t)

@@ -1,5 +1,5 @@
 //
-// This source file is part of the LCLPing open source project
+// This source file is part of the LCL open source project
 //
 // Copyright (c) 2021-2024 Local Connectivity Lab and the project authors
 // Licensed under Apache License v2.0
@@ -26,7 +26,7 @@ private func htoi(_ value: UInt8) throws -> UInt8 {
     case charA...charA + 5:
         return value - charA + 10
     default:
-        throw LCLPingAuthError.incorrectHexValue
+        throw LCLAuthError.incorrectHexValue
     }
 }
 
@@ -37,7 +37,7 @@ extension Data {
         self.init()
 
         if hexString.count % 2 != 0 || hexString.count == 0 {
-            throw LCLPingAuthError.invalidFormatError
+            throw LCLAuthError.invalidFormatError
         }
 
         let stringBytes: ByteArray = Array(hexString.lowercased().data(using: String.Encoding.utf8)!)

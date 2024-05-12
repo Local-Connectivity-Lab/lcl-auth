@@ -1,5 +1,5 @@
 //
-// This source file is part of the LCLPing open source project
+// This source file is part of the LCL open source project
 //
 // Copyright (c) 2021-2024 Local Connectivity Lab and the project authors
 // Licensed under Apache License v2.0
@@ -26,9 +26,9 @@ import Crypto
  - Precondition: count has to be greater than 0
  - Parameters:
     - count: the number of bytes to generate
- - Returns: A `Result` type. When succeeded, the associated secure random data will be return; When failed, `LCLPingAuthError` will be returned
+ - Returns: A `Result` type. When succeeded, the associated secure random data will be return; When failed, `LCLAuthError` will be returned
  */
-public func generateSecureRandomBytes(count: Int) -> Result<Data, LCLPingAuthError> {
+public func generateSecureRandomBytes(count: Int) -> Result<Data, LCLAuthError> {
     var bytes: ByteArray = ByteArray(repeating: 0, count: count)
 
     #if os(macOS) || os(iOS) || os(watchOS) || os(tvOS)
