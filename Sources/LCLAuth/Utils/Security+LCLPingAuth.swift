@@ -13,8 +13,10 @@
 import Foundation
 #if os(macOS) || os(iOS) || os(watchOS) || os(tvOS)
 import Security
-#elseif os(Linux)
+#elseif canImport(Glibc)
 import Glibc
+#elseif canImport(Musl)
+import Musl
 #else
 #error("Unknown platform")
 #endif
