@@ -31,6 +31,8 @@ import Crypto
  - Returns: A `Result` type. When succeeded, the associated secure random data will be return; When failed, `LCLAuthError` will be returned
  */
 public func generateSecureRandomBytes(count: Int) -> Result<Data, LCLAuthError> {
+    precondition(count > 0, "count must be greater than 0")
+
     var bytes: ByteArray = ByteArray(repeating: 0, count: count)
 
     #if os(macOS) || os(iOS) || os(watchOS) || os(tvOS)
@@ -43,8 +45,12 @@ public func generateSecureRandomBytes(count: Int) -> Result<Data, LCLAuthError> 
     // success
     return .success(Data(bytes))
     #elseif os(Linux)
-    let res = withUnsafeMutableBytes(of: &bytes) { buffer in
-        return getentropy(buffer.baseAddress, count)
+    let res = bytes.withUnsafeMutableBytes { buffer -> Int32 in
+        // The buffer might be empty if count was 0, so safely unwrap the baseAddress.
+        guard let baseAddress = buffer.baseAddress else {
+            return 0 // Nothing to do for an empty buffer.
+        }
+        return getentropy(baseAddress, buffer.count)
     }
 
     if res == -1 {
@@ -53,6 +59,8 @@ public func generateSecureRandomBytes(count: Int) -> Result<Data, LCLAuthError> 
     }
 
     return .success(Data(bytes))
+    #else
+    #error("Unknown platform")
     #endif
 }
 
