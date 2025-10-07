@@ -4,17 +4,16 @@ on: [push, pull_request]
 
 jobs:
   build:
-    name: Swift ${{ matrix.swift }} on ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-        swift: ["5.9"]
-    runs-on: ${{ matrix.os }}
+    name: Swift 5.9.2 on Ubuntu 22.04
+    runs-on: ubuntu-latest
+
+    container:
+      image: swift:5.9.2-jammy
+
     steps:
-      - uses: swift-actions/setup-swift@v2
-        with:
-          swift-version: ${{ matrix.swift }}
       - uses: actions/checkout@v4
+      - name: Verify Swift Version
+        run: swift --version
       - name: Build
         run: swift build
       - name: Run tests
