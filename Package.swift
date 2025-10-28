@@ -10,8 +10,8 @@ let package = Package(
         .library(name: "LCLAuth", targets: ["LCLAuth"])
     ],
     dependencies: [
-        .package(url: "https://github.com/johnnzhou/lcl-k1.git", branch: "main"),
-        .package(url: "https://github.com/johnnzhou/swift-crypto.git", branch: "main")
+        .package(url: "https://github.com/Local-Connectivity-Lab/lcl-k1.git", exact: "1.0.1"),
+        .package(url: "https://github.com/Local-Connectivity-Lab/swift-crypto.git", from: "1.0.0")
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
